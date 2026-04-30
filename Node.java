@@ -37,4 +37,17 @@ public class Node {
         }
         return this.children[i].search(value);
     }
+
+    public boolean insert(String value) {
+        int i=0;
+        while (this.words[i].compareTo(value)<0){
+            i++;
+        }
+        if (this.children[i]!= null){
+            this.children[i] = new Node(value, 0);
+        }else {
+            this.children[i].insert(value);
+        }
+        return true;
+    }
 }
