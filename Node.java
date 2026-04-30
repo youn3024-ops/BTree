@@ -59,14 +59,16 @@ public class Node {
 
     public String toString(){
         String retStr = this.words[0] + ", " + this.words[1] + ", " + this.words[2] + " - ";
+        //String retStr = "";
         System.out.println(isLeaf);
         if (!this.isLeaf){
             for(int i=0;i<3;i++){
                 if (this.children[i] != null){
-                    retStr += this.children[i].toString();
+                    retStr += "[ " + this.children[i].toString() + " ]";
                 }else {
-                    retStr += "[XXX] - ";
+                    retStr += "[ XXX ]";
                 }
+                //retStr += this.words[i];
             }
         }
         return retStr;
