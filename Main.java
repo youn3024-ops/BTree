@@ -5,7 +5,12 @@ public class Main {
 
         myRoot = myRoot.insert(null, "World");
         myRoot = myRoot.insert(null, "Animal");
+        System.out.println(myRoot);
         myRoot = myRoot.insert(null, "Bumblebee");
+        System.out.println(myRoot);
+        myRoot = myRoot.insert(null, "Protuberance");
+        System.out.println(myRoot);
+        myRoot = myRoot.insert(null, "Isolated");
         System.out.println(myRoot);
 
     }

@@ -62,6 +62,10 @@ public class Node {
             i++;
         }
         System.out.println("In Insert: " + i);
+        if (this.children[i] != null){
+            this.children[i] = this.children[i].insert(this, value);
+            return this;
+        }
         
         if (this.words.size() < 2){
             this.words.add(i, value);
