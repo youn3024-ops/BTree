@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Node {
     int nodeIndex;
@@ -72,6 +73,11 @@ public class Node {
         return this.nodeIndex;
     }
 
+    public void addWord(String word){
+        this.words.add(word);
+        Collections.sort(this.words);
+    }
+
     public Node insert(Node parent, String value) {
         int i=0;
         while (i<this.words.size() && this.words.get(i).compareTo(value)<0){
@@ -110,7 +116,7 @@ public class Node {
                 System.out.println("Words: ");
                 System.out.println(this.words);
                 parent.setChild(new Node(this.words.get(1), this.nodeIndex+1), this.nodeIndex+1);
-                //this.parent.insert(this.parent.getParent(), midVal);
+                this.parent.addWord(midVal);
                 //parent.children.add(this.nodeIndex+1, new Node(this.words.get(i), this.nodeIndex+1));
                 return new Node(this.words.get(0), this.nodeIndex);
                 //Add this.words.get(0) as node to parent
