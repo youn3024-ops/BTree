@@ -50,4 +50,8 @@ public class Node {
         }
         return true;
     }
+
+    public String toString(){
+        return this.words[0];
+    }
 }
