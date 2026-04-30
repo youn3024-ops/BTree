@@ -7,11 +7,13 @@ public class Node {
     public Node(String word, int nodeIndex) {
         this.words[0] = word;
         this.nodeIndex = nodeIndex;
+        this.isLeaf = true;
     }
 
     public Node(String[] words, int nodeIndex) {
         this.words = words;
         this.nodeIndex = nodeIndex;
+        this.isLeaf = true;
     }
 
     public String[] getVal(){
@@ -40,18 +42,33 @@ public class Node {
 
     public boolean insert(String value) {
         int i=0;
-        while (this.words[i].compareTo(value)<0){
+        while (this.words[i] != null && this.words[i].compareTo(value)<0){
             i++;
         }
-        if (this.children[i]!= null){
+        System.out.println("In Insert: " + i);
+        if (this.children[i] == null){
             this.children[i] = new Node(value, 0);
+            this.isLeaf = false;
+            System.out.println("Created new node");
         }else {
             this.children[i].insert(value);
+            this.isLeaf = false;
         }
         return true;
     }
 
     public String toString(){
-        return this.words[0];
+        String retStr = this.words[0] + ", " + this.words[1] + ", " + this.words[2] + " - ";
+        System.out.println(isLeaf);
+        if (!this.isLeaf){
+            for(int i=0;i<3;i++){
+                if (this.children[i] != null){
+                    retStr += this.children[i].toString();
+                }else {
+                    retStr += "[XXX] - ";
+                }
+            }
+        }
+        return retStr;
     }
 }
