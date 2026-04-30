@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Node {
     int nodeIndex;
     ArrayList<String> words = new ArrayList<String>(3);
-    Node[] children = new Node[3];
+    ArrayList<Node> children = new ArrayList<Node>(3);
     Node parent;
     boolean isLeaf;
 
@@ -24,7 +24,7 @@ public class Node {
         return this.words;
     }
 
-    public Node[] getChildren(){
+    public ArrayList<Node> getChildren(){
         return this.children;
     }
 
@@ -41,7 +41,7 @@ public class Node {
         if (this.isLeaf){
             return false;
         }
-        return this.children[i].search(value);
+        return this.children.get(i).search(value);
     }
 
     public Node getParent(){
@@ -49,11 +49,27 @@ public class Node {
     }
 
     public void setChild(Node newChild, int idx){
-        this.children[idx] = newChild;
+        System.out.println("idx: " + idx);
+        System.out.println(this.children);
+        if (idx <= this.children.size()){
+            this.children.add(idx, newChild);
+        }
+        else{
+            this.children.set(idx, newChild);
+        }
+        newChild.setIdx(idx);
     }
 
     public void setLeafStatus(boolean newStatus){
         this.isLeaf = newStatus;
+    }
+
+    public void setIdx(int idx){
+        this.nodeIndex = idx;
+    }
+
+    public int getIdx(){
+        return this.nodeIndex;
     }
 
     public Node insert(Node parent, String value) {
@@ -62,8 +78,10 @@ public class Node {
             i++;
         }
         System.out.println("In Insert: " + i);
-        if (this.children[i] != null){
-            this.children[i] = this.children[i].insert(this, value);
+        System.out.println(this.children);
+        if(i < this.children.size()) {
+        //if (this.children.get(i) != null){
+            this.children.set(i, this.children.get(i).insert(this, value));
             return this;
         }
         
@@ -86,9 +104,21 @@ public class Node {
                 return this.parent;
             }
             else{
-                parent = parent.insert(parent.getParent(), midVal);
-                this.parent.setLeafStatus(false);
-                return this;
+                //WRONG
+                //Add midVal to Parent Node
+                //Delete this node from Parent
+                System.out.println("Words: ");
+                System.out.println(this.words);
+                parent.setChild(new Node(this.words.get(1), this.nodeIndex+1), this.nodeIndex+1);
+                //this.parent.insert(this.parent.getParent(), midVal);
+                //parent.children.add(this.nodeIndex+1, new Node(this.words.get(i), this.nodeIndex+1));
+                return new Node(this.words.get(0), this.nodeIndex);
+                //Add this.words.get(0) as node to parent
+                //Add this.words.get(1) as node to parent
+                
+                //parent = parent.insert(parent.getParent(), midVal);
+                //this.parent.setLeafStatus(false);
+                //return this;
             }
             
         //}
@@ -115,8 +145,8 @@ public class Node {
         String retStr = "";
         for (int i=0;i<3;i++){
             if (!this.isLeaf){
-                if (this.children[i] != null){
-                    retStr += "[ " + this.children[i].toString() + " ]";
+                if (i < this.children.size()){
+                    retStr += "[ " + this.children.get(i).getIdx() + ": " + this.children.get(i).toString() + " ]";
                 } else {
                     retStr += "[EMPTY CHILD] ";
                 }
