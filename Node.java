@@ -46,17 +46,25 @@ public class Node {
 
     //https://www.reddit.com/r/computerscience/comments/1sukkgh/made_a_diagram_to_finally_understand_btree/
     public boolean search(String value){
-        int i = 0;
-        while (this.words.get(i).compareTo(value)<0){
-            i++;
-        }
-        if (this.words.get(i).equals(value)){
+        if (this.words.contains(value)){
+            System.out.println(this.children);
             return true;
         }
         if (this.isLeaf){
             return false;
         }
+        int i = 0;
+        while (i < this.words.size() && this.words.get(i).compareTo(value)<0){
+            i++;
+        }
         return this.children.get(i).search(value);
+        /*if(i >= this.words.size()){
+            return false;
+        }
+        if (this.words.get(i).equals(value)){
+            return true;
+        }
+        return false;*/
     }
 
     public Node getParent(){
@@ -159,7 +167,7 @@ public class Node {
 
 
 
-/*
+        /*
         if (i==0){//New item to be added is at the leftmost side of the node
 
         }
@@ -302,31 +310,12 @@ public class Node {
             if (!this.isLeaf){
                 if (i < this.children.size()){
                     retStr += "[ " + this.children.get(i).getIdx() + ": " + this.children.get(i).toString() + " ]";
-                }/* else {
-                    retStr += "[EMPTY CHILD] ";
-                }*/
+                }
             }
             if (this.words.size() > i){
                 retStr += this.words.get(i) + ", ";
             }
         }
-
-        /*for(int i=0;i<this.words.size();i++){
-            retStr += this.words.get(i) + ", ";
-        }
-        //String retStr = this.words.get(0) + ", " + this.words.get(1) + ", " + this.words.get(2) + " - ";
-        //String retStr = "";
-        System.out.println(isLeaf);
-        if (!this.isLeaf){
-            for(int i=0;i<3;i++){
-                if (this.children[i] != null){
-                    retStr += "[ " + this.children[i].toString() + " ]";
-                }else {
-                    retStr += "[ XXX ]";
-                }
-                //retStr += this.words[i];
-            }
-        }*/
         return retStr;
     }
 }
