@@ -18,7 +18,7 @@ public class Node {
     //https://www.reddit.com/r/computerscience/comments/1sukkgh/made_a_diagram_to_finally_understand_btree/
     public boolean search(String value){
         if (this.words.contains(value)){
-            System.out.println(this.children);
+            //System.out.println(this.children);
             return true;
         }
         if (this.isLeaf){
@@ -63,7 +63,7 @@ public class Node {
             String rightWord = this.words.get(2);
             if (!this.isLeaf){
                 if(this.parent == null){
-                    System.out.println("Not leaf, no parents");
+                    //System.out.println("Not leaf, no parents");
                     Node leftChild = new Node(this, leftWord, 0);
                     Node rightChild = new Node(this, rightWord, 0);
                     Node leftGrandChild = this.children.get(0);
@@ -78,7 +78,7 @@ public class Node {
                     this.children.add(leftChild);
                     this.children.add(rightChild);
                 }else{
-                    System.out.println("Not leaf, has parents");
+                    //System.out.println("Not leaf, has parents");
                     this.parent.addChild(new Node(this.parent, rightWord, 0));
                     this.words.clear();
                     this.words.add(leftWord);
@@ -86,7 +86,7 @@ public class Node {
                     this.parent.propogate();
                 }
             }else{
-                System.out.println("Leaf");
+                //System.out.println("Leaf");
                 Node leftChild = new Node(this, leftWord, 0);
                 Node rightChild = new Node(this, rightWord, 0);
                 this.words.clear();

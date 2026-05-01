@@ -7,8 +7,6 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("------------------");
-
         Node otherRoot = new Node(null, "Favorite", 0);
         otherRoot.insert("Meridian");
         System.out.println(otherRoot);
@@ -41,8 +39,19 @@ public class Main {
         System.out.println(otherRoot);
 
         System.out.println(otherRoot.search("Perspire"));
+
+        
+        System.out.println("------------------");
         try{
             ArrayList<String> text = readText();
+            Node textRoot = new Node(null, text.get(0), 0);
+            for(int i=1;i<text.size();i++){
+                if (!textRoot.search(text.get(i))){
+                    textRoot.insert(text.get(i));
+                }
+
+            }
+            System.out.println(textRoot);
         } catch (IOException e){
             System.out.println("File not found");
         }
@@ -79,6 +88,9 @@ public class Main {
                 wordsWordsWords.set(i, wordsWordsWords.get(i).replace("?", ""));
                 wordsWordsWords.set(i, wordsWordsWords.get(i).replace("!", ""));
                 wordsWordsWords.set(i, wordsWordsWords.get(i).replace("'", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("-", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("&", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace(" ", ""));
                 wordsWordsWords.set(i, wordsWordsWords.get(i).replace("(", ""));
                 wordsWordsWords.set(i, wordsWordsWords.get(i).replace(")", ""));
                 wordsWordsWords.set(i, wordsWordsWords.get(i).replace("[", ""));
@@ -86,7 +98,7 @@ public class Main {
                 wordsWordsWords.set(i, wordsWordsWords.get(i).toUpperCase());
             }
         }
-        System.out.println(String.join(", ", wordsWordsWords));
+        //System.out.println(String.join(", ", wordsWordsWords));
         return wordsWordsWords;
     }
 }
