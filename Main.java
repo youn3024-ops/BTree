@@ -1,9 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        Node myRoot = new Node("Hello", 0);
+        //Node myRoot = new Node("Hello", 0);
         //System.out.println(myNode);
 
-        myRoot = myRoot.insert(null, "World");
+        /*myRoot = myRoot.insert(null, "World");
         myRoot = myRoot.insert(null, "Animal");
         System.out.println(myRoot);
         myRoot = myRoot.insert(null, "Bumblebee");
@@ -13,11 +13,11 @@ public class Main {
         myRoot = myRoot.insert(null, "Isolated");
         System.out.println(myRoot);
         myRoot = myRoot.insert(null, "Cartography");
-        System.out.println(myRoot);
+        System.out.println(myRoot);*/
 
         System.out.println("------------------");
 
-        Node otherRoot = new Node("Favorite", 0);
+        Node otherRoot = new Node(null, "Favorite", 0);
         otherRoot.insert("Meridian");
         System.out.println(otherRoot);
         otherRoot.insert("Lukewarm");
