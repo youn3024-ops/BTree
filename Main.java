@@ -12,6 +12,18 @@ public class Main {
         System.out.println(myRoot);
         myRoot = myRoot.insert(null, "Isolated");
         System.out.println(myRoot);
+        myRoot = myRoot.insert(null, "Cartography");
+        System.out.println(myRoot);
 
+
+        Node otherRoot = new Node("Hello", 0);
+        otherRoot.insert("World");
+        System.out.println(otherRoot);
+        otherRoot.insert("Animal");
+        System.out.println(otherRoot);
+        otherRoot.insert("Bumblebee");
+        System.out.println(otherRoot);
+        otherRoot.insert("Protuberance");
+        System.out.println(otherRoot);
     }
 }

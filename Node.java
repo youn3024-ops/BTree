@@ -21,6 +21,20 @@ public class Node {
         this.isLeaf = true;
     }
 
+    public Node(Node parent, ArrayList<String> words, int nodeIndex){
+        this.words = words;
+        this.parent = parent;
+        this.nodeIndex = nodeIndex;
+        this.isLeaf = true;
+    }
+
+    public Node(Node parent, String word, int nodeIndex){
+        this.words.add(word);
+        this.parent = parent;
+        this.nodeIndex = nodeIndex;
+        this.isLeaf = true;
+    }
+
     public ArrayList<String> getVal(){
         return this.words;
     }
@@ -76,6 +90,11 @@ public class Node {
     public void addWord(String word){
         this.words.add(word);
         Collections.sort(this.words);
+    }
+
+    public void addChild(Node newChild, int newIdx){
+        this.children.add(newIdx, newChild);
+        //this.children.add(newRight, newLeftIdx+1);
     }
 
     public Node insert(Node parent, String value) {
@@ -146,6 +165,57 @@ public class Node {
         }
         return true;*/
     }
+
+    public boolean insert(String word){
+        if (this.words.size() == 1){
+            if (this.words.get(0).compareTo(word)<0){
+                this.words.add(1, word);
+            }
+            else{
+                this.words.add(0, word);
+            }
+            return true;
+        }else{
+            System.out.println(this.words.size());
+            int i = 0;
+            while(i < this.words.size() && this.words.get(i).compareTo(word) < 0){
+                i++;
+            }
+            if (!this.isLeaf){
+                this.children.get(0).insert(word);
+                return true;
+            }else{
+                this.words.add(i, word);
+                System.out.println(this.words.size());
+                //Node newRight = new Node(this.parent, this.words.get(1), this.nodeIndex+1);
+                String leftWord = this.words.get(0);
+                String midWord = this.words.get(1);
+                String rightWord = this.words.get(2);
+                //this = new Node(this.parent, this.words.get(0), this.nodeIndex);
+                this.words.clear();
+
+                if (this.parent == null){//That means this is a root node
+                    Node leftChild = new Node(this, leftWord, 0);
+                    Node rightChild = new Node(this, rightWord, 1);
+                    System.out.println("I am a root");
+                    this.words.add(midWord);
+                    this.addChild(leftChild, 0);
+                    this.addChild(rightChild, 1);
+                    this.isLeaf = false;
+                    System.out.println(this.children.size());
+                }else{
+                    Node newChild = new Node(this.parent, rightWord, this.nodeIndex+1);
+                    this.words.add(leftWord);
+                    this.parent.addChild(newChild, this.nodeIndex+1);
+                    this.parent.insert(midWord);
+                }
+                return true;
+            }
+        }
+    }
+
+
+
 
     public String toString(){
         String retStr = "";
