@@ -58,13 +58,6 @@ public class Node {
             i++;
         }
         return this.children.get(i).search(value);
-        /*if(i >= this.words.size()){
-            return false;
-        }
-        if (this.words.get(i).equals(value)){
-            return true;
-        }
-        return false;*/
     }
 
     public Node getParent(){
@@ -110,7 +103,6 @@ public class Node {
             i++;
         }
         this.children.add(i, newChild);
-        //this.children.add(newRight, newLeftIdx+1);
     }
 
     public Node insert(Node parent, String value) {
@@ -145,90 +137,13 @@ public class Node {
                 return this.parent;
             }
             else{
-                //WRONG
-                //Add midVal to Parent Node
-                //Delete this node from Parent
                 System.out.println("Words: ");
                 System.out.println(this.words);
                 parent.setChild(new Node(this.words.get(1), this.nodeIndex+1), this.nodeIndex+1);
                 this.parent.addWord(midVal);
-                //parent.children.add(this.nodeIndex+1, new Node(this.words.get(i), this.nodeIndex+1));
-                return new Node(this.words.get(0), this.nodeIndex);
-                //Add this.words.get(0) as node to parent
-                //Add this.words.get(1) as node to parent
-                
-                //parent = parent.insert(parent.getParent(), midVal);
-                //this.parent.setLeafStatus(false);
-                //return this;
+                return new Node(this.words.get(0), this.nodeIndex)
             }
-            
-        //}
-
-
-
-
-        /*
-        if (i==0){//New item to be added is at the leftmost side of the node
-
-        }
-        if (this.children[i] == null){
-            this.children[i] = new Node(value, 0);
-            this.isLeaf = false;
-            System.out.println("Created new node");
-        }else {
-            this.children[i].insert(value);
-            this.isLeaf = false;
-        }
-        return true;*/
     }
-
-    /*public boolean insert(String word){
-        if (this.words.size() == 1){
-            if (this.words.get(0).compareTo(word)<0){
-                this.words.add(1, word);
-            }
-            else{
-                this.words.add(0, word);
-            }
-            return true;
-        }else{
-            System.out.println(this.words.size());
-            int i = 0;
-            while(i < this.words.size() && this.words.get(i).compareTo(word) < 0){
-                i++;
-            }
-            if (!this.isLeaf){
-                this.children.get(0).insert(word);
-                return true;
-            }else{
-                this.words.add(i, word);
-                System.out.println(this.words.size());
-                //Node newRight = new Node(this.parent, this.words.get(1), this.nodeIndex+1);
-                String leftWord = this.words.get(0);
-                String midWord = this.words.get(1);
-                String rightWord = this.words.get(2);
-                //this = new Node(this.parent, this.words.get(0), this.nodeIndex);
-                this.words.clear();
-
-                if (this.parent == null){//That means this is a root node
-                    Node leftChild = new Node(this, leftWord, 0);
-                    Node rightChild = new Node(this, rightWord, 1);
-                    System.out.println("I am a root");
-                    this.words.add(midWord);
-                    this.addChild(leftChild, 0);
-                    this.addChild(rightChild, 1);
-                    this.isLeaf = false;
-                    System.out.println(this.children.size());
-                }else{
-                    Node newChild = new Node(this.parent, rightWord, this.nodeIndex+1);
-                    this.words.add(leftWord);
-                    this.parent.addChild(newChild, this.nodeIndex+1);
-                    this.parent.insert(midWord);
-                }
-                return true;
-            }
-        }
-    }*/
 
     public void addWordInOrder(String word){
         int i=0;
