@@ -1,20 +1,12 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        //Node myRoot = new Node("Hello", 0);
-        //System.out.println(myNode);
-
-        /*myRoot = myRoot.insert(null, "World");
-        myRoot = myRoot.insert(null, "Animal");
-        System.out.println(myRoot);
-        myRoot = myRoot.insert(null, "Bumblebee");
-        System.out.println(myRoot);
-        myRoot = myRoot.insert(null, "Protuberance");
-        System.out.println(myRoot);
-        myRoot = myRoot.insert(null, "Isolated");
-        System.out.println(myRoot);
-        myRoot = myRoot.insert(null, "Cartography");
-        System.out.println(myRoot);*/
-
         System.out.println("------------------");
 
         Node otherRoot = new Node(null, "Favorite", 0);
@@ -49,5 +41,52 @@ public class Main {
         System.out.println(otherRoot);
 
         System.out.println(otherRoot.search("Perspire"));
+        try{
+            ArrayList<String> text = readText();
+        } catch (IOException e){
+            System.out.println("File not found");
+        }
+    }
+
+    public static ArrayList<String> readText() throws IOException{
+        //Code utilized from previous file-reading project
+        Scanner input = new Scanner(System.in);
+        System.out.println("File name to read: ");
+        String fileName = input.nextLine();
+
+        File fileIn = new File(fileName);
+        Scanner s = new Scanner(fileIn);
+
+        String stringData = "";
+        System.out.print("Scanning text: \n0 lines scanned");
+        int lineCount = 0;
+        while(s.hasNextLine()){
+            stringData += s.nextLine() + " ";
+            lineCount++;
+            System.out.print("\r" + lineCount + " lines scanned");
+        }
+        s.close();
+        ArrayList<String> wordsWordsWords = new ArrayList<>(Arrays.asList(stringData.split(" ")));
+        for(int i=0;i<wordsWordsWords.size();i++){
+            if(wordsWordsWords.get(i).equals(" ") || wordsWordsWords.get(i).equals("")){
+                wordsWordsWords.remove(i);
+                i--;
+            }else{
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace(".", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace(",", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace(";", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace(":", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("?", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("!", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("'", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("(", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace(")", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("[", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).replace("]", ""));
+                wordsWordsWords.set(i, wordsWordsWords.get(i).toUpperCase());
+            }
+        }
+        System.out.println(String.join(", ", wordsWordsWords));
+        return wordsWordsWords;
     }
 }
