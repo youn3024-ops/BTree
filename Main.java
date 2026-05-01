@@ -15,15 +15,28 @@ public class Main {
         myRoot = myRoot.insert(null, "Cartography");
         System.out.println(myRoot);
 
+        System.out.println("------------------");
 
-        Node otherRoot = new Node("Hello", 0);
-        otherRoot.insert("World");
+        Node otherRoot = new Node("Favorite", 0);
+        otherRoot.insert("Meridian");
         System.out.println(otherRoot);
-        otherRoot.insert("Animal");
+        otherRoot.insert("Lukewarm");
         System.out.println(otherRoot);
-        otherRoot.insert("Bumblebee");
+        otherRoot.insert("Anchovies");
         System.out.println(otherRoot);
-        otherRoot.insert("Protuberance");
+        otherRoot.insert("Jackrabbit");
+        System.out.println(otherRoot);
+        otherRoot.insert("Krampus");
+        System.out.println(otherRoot);
+        otherRoot.insert("Heliotrope");
+        System.out.println(otherRoot);
+        otherRoot.insert("Novacaine");
+        System.out.println(otherRoot);
+        otherRoot.insert("Ovaltine");
+        System.out.println(otherRoot);
+        otherRoot.insert("Perspire");
+        System.out.println(otherRoot);
+        otherRoot.insert("Quixotic");
         System.out.println(otherRoot);
     }
 }

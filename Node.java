@@ -87,13 +87,21 @@ public class Node {
         return this.nodeIndex;
     }
 
+    public void setParent(Node parent){
+        this.parent = parent;
+    }
+
     public void addWord(String word){
         this.words.add(word);
         Collections.sort(this.words);
     }
 
-    public void addChild(Node newChild, int newIdx){
-        this.children.add(newIdx, newChild);
+    public void addChild(Node newChild){
+        int i=0;
+        while(i < this.children.size() && this.children.get(i).words.get(0).compareTo(newChild.words.get(0)) < 0){
+            i++;
+        }
+        this.children.add(i, newChild);
         //this.children.add(newRight, newLeftIdx+1);
     }
 
@@ -166,7 +174,7 @@ public class Node {
         return true;*/
     }
 
-    public boolean insert(String word){
+    /*public boolean insert(String word){
         if (this.words.size() == 1){
             if (this.words.get(0).compareTo(word)<0){
                 this.words.add(1, word);
@@ -212,6 +220,77 @@ public class Node {
                 return true;
             }
         }
+    }*/
+
+    public void addWordInOrder(String word){
+        int i=0;
+        while(i < this.words.size() && this.words.get(i).compareTo(word) < 0){
+            i++;
+        }
+        this.words.add(i, word);
+    }
+
+    public void propogate(){
+        if (this.words.size() > 2){
+            String leftWord = this.words.get(0);
+            String midWord = this.words.get(1);
+            String rightWord = this.words.get(2);
+            if (!this.isLeaf){
+                if(this.parent == null){
+                    System.out.println("Not leaf, no parents");
+                    Node leftChild = new Node(this, leftWord, 0);
+                    Node rightChild = new Node(this, rightWord, 0);
+                    Node leftGrandChild = this.children.get(0);
+                    Node rightGrandChild = this.children.get(1);
+                    this.words.clear();
+                    this.words.add(midWord);
+                    this.children.clear();
+                    leftGrandChild.setParent(leftChild);
+                    rightGrandChild.setParent(rightChild);
+                    leftChild.addChild(leftGrandChild);
+                    rightChild.addChild(rightGrandChild);
+                    this.children.add(leftChild);
+                    this.children.add(rightChild);
+                }else{
+                    System.out.println("Not leaf, has parents");
+                    this.parent.addChild(new Node(this.parent, rightWord, 0));
+                    this.words.clear();
+                    this.words.add(leftWord);
+                    this.parent.addWordInOrder(midWord);
+                    this.parent.propogate();
+                }
+            }else{
+                System.out.println("Leaf");
+                Node leftChild = new Node(this, leftWord, 0);
+                Node rightChild = new Node(this, rightWord, 0);
+                this.words.clear();
+                this.words.add(midWord);
+                this.children.clear();
+                this.children.add(leftChild);
+                this.children.add(rightChild);
+                this.isLeaf = false;
+            }
+        }
+    }
+
+    public boolean insert(String word){
+        if (this.isLeaf){
+            if (this.words.size() == 1){
+                this.addWordInOrder(word);
+                return true;
+            }else{//Node has 2 words
+                this.addWordInOrder(word);
+                this.propogate();
+                return true;
+            }
+        }else{//Not a leaf
+            int i=0;
+            while(i < this.words.size() && this.words.get(i).compareTo(word) < 0){
+                i++;
+            }
+            this.children.get(i).insert(word);
+            }
+        return false;
     }
 
 
@@ -223,9 +302,9 @@ public class Node {
             if (!this.isLeaf){
                 if (i < this.children.size()){
                     retStr += "[ " + this.children.get(i).getIdx() + ": " + this.children.get(i).toString() + " ]";
-                } else {
+                }/* else {
                     retStr += "[EMPTY CHILD] ";
-                }
+                }*/
             }
             if (this.words.size() > i){
                 retStr += this.words.get(i) + ", ";
