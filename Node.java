@@ -308,12 +308,18 @@ public class Node {
         String retStr = "";
         for (int i=0;i<3;i++){
             if (!this.isLeaf){
+                if (i==this.words.size()){
+                    retStr += "> ";
+                }
                 if (i < this.children.size()){
-                    retStr += "[ " + this.children.get(i).getIdx() + ": " + this.children.get(i).toString() + " ]";
+                    retStr += "[ " + this.children.get(i).toString() + " ]";
+                }
+                if (i==0){
+                    retStr += "< ";
                 }
             }
             if (this.words.size() > i){
-                retStr += this.words.get(i) + ", ";
+                retStr += this.words.get(i) + " ";
             }
         }
         return retStr;

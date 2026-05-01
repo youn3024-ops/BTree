@@ -39,6 +39,15 @@ public class Main {
         otherRoot.insert("Quixotic");
         System.out.println(otherRoot);
 
+        otherRoot.insert("Jade");
+        System.out.println(otherRoot);
+        otherRoot.insert("Jake");
+        System.out.println(otherRoot);
+        otherRoot.insert("Jale");
+        System.out.println(otherRoot);
+        otherRoot.insert("Jams");
+        System.out.println(otherRoot);
+
         System.out.println(otherRoot.search("Perspire"));
     }
 }
