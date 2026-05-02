@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Node otherRoot = new Node(null, "Favorite", 0);
+        /*Node otherRoot = new Node(null, "Favorite", 0);
         otherRoot.insert("Meridian");
         System.out.println(otherRoot);
         otherRoot.insert("Lukewarm");
@@ -38,7 +38,7 @@ public class Main {
         otherRoot.insert("Jams");
         System.out.println(otherRoot);
 
-        System.out.println(otherRoot.search("Perspire"));
+        System.out.println(otherRoot.search("Perspire"));*/
 
         
         System.out.println("------------------");
@@ -52,6 +52,18 @@ public class Main {
 
             }
             System.out.println(textRoot);
+            String queryString = "";
+            Scanner input = new Scanner(System.in);
+            System.out.println("Type 'quit' to escape");
+            while (!queryString.equals("QUIT")){
+                System.out.println("Enter the word to search for: ");
+                queryString = input.nextLine().toUpperCase();
+                if (!queryString.equals("QUIT")){
+                    System.out.println("Search run for [" + queryString + "] - " + (textRoot.search(queryString)?"Word found\n": "Word not found\n"));
+                }else{
+                    System.out.println("Program Terminated");
+                }
+            }
         } catch (IOException e){
             System.out.println("File not found");
         }
